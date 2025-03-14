@@ -2,13 +2,11 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text('qwe'),
-    );
+    return const Placeholder();
   }
 }

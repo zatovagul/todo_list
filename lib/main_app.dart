@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:test_todo_list/common/di/app_di.dart';
 import 'package:test_todo_list/common/gen/localization/l10n.dart';
 import 'package:test_todo_list/common/navigation/app_router.dart';
 
 class MainApp extends StatefulWidget {
-  const MainApp({super.key});
+  const MainApp({required this.appDi, super.key});
+
+  final AppDi appDi;
 
   @override
   State<MainApp> createState() => _MainAppState();
@@ -24,6 +28,15 @@ class _MainAppState extends State<MainApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
+      themeMode: ThemeMode.light,
+      theme: ThemeData.light(useMaterial3: true),
+      darkTheme: ThemeData.dark(useMaterial3: true),
+      builder: (context, child) {
+        return RepositoryProvider(
+          create: (context) => widget.appDi,
+          child: child ?? const SizedBox(),
+        );
+      },
     );
   }
 }

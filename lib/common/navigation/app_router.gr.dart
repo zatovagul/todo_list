@@ -25,3 +25,51 @@ class HomeRoute extends PageRouteInfo<void> {
     },
   );
 }
+
+/// generated route for
+/// [SettingsPage]
+class SettingsRoute extends PageRouteInfo<void> {
+  const SettingsRoute({List<PageRouteInfo>? children})
+    : super(SettingsRoute.name, initialChildren: children);
+
+  static const String name = 'SettingsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SettingsPage();
+    },
+  );
+}
+
+/// generated route for
+/// [TodoListPage]
+class TodoListRoute extends PageRouteInfo<void> {
+  const TodoListRoute({List<PageRouteInfo>? children})
+    : super(TodoListRoute.name, initialChildren: children);
+
+  static const String name = 'TodoListRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TodoListPage();
+    },
+  );
+}
+
+/// generated route for
+/// [TodoSavePage]
+class TodoSaveRoute extends PageRouteInfo<void> {
+  const TodoSaveRoute({List<PageRouteInfo>? children})
+    : super(TodoSaveRoute.name, initialChildren: children);
+
+  static const String name = 'TodoSaveRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TodoSavePage();
+    },
+  );
+}
