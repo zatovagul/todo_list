@@ -11,5 +11,9 @@
   "gallery": "Галерея",
   "delete": "Удалить",
   "deleting": "Удаление",
-  "cancel": "Отмена"
+  "cancel": "Отмена",
+  "settings": "Настройки",
+  "darkMode": "Темная тема",
+  "lightMode": "Светлая тема",
+  "systemMode": "Системная тема"
 }

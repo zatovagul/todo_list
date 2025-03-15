@@ -119,6 +119,31 @@ class S {
   String get cancel {
     return Intl.message('Отмена', name: 'cancel', desc: '', args: []);
   }
+
+  /// `Настройки`
+  String get settings {
+    return Intl.message('Настройки', name: 'settings', desc: '', args: []);
+  }
+
+  /// `Темная тема`
+  String get darkMode {
+    return Intl.message('Темная тема', name: 'darkMode', desc: '', args: []);
+  }
+
+  /// `Светлая тема`
+  String get lightMode {
+    return Intl.message('Светлая тема', name: 'lightMode', desc: '', args: []);
+  }
+
+  /// `Системная тема`
+  String get systemMode {
+    return Intl.message(
+      'Системная тема',
+      name: 'systemMode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
