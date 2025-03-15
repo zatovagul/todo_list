@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      routes: [TodoListRoute(), SettingsRoute()],
+      routes: const [TodoListRoute(), SettingsRoute()],
       builder: (context, child) {
         return Column(
           children: [
