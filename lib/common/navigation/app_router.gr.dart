@@ -60,16 +60,36 @@ class TodoListRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [TodoSavePage]
-class TodoSaveRoute extends PageRouteInfo<void> {
-  const TodoSaveRoute({List<PageRouteInfo>? children})
-    : super(TodoSaveRoute.name, initialChildren: children);
+class TodoSaveRoute extends PageRouteInfo<TodoSaveRouteArgs> {
+  TodoSaveRoute({Key? key, TodoEntity? todo, List<PageRouteInfo>? children})
+    : super(
+        TodoSaveRoute.name,
+        args: TodoSaveRouteArgs(key: key, todo: todo),
+        initialChildren: children,
+      );
 
   static const String name = 'TodoSaveRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const TodoSavePage();
+      final args = data.argsAs<TodoSaveRouteArgs>(
+        orElse: () => const TodoSaveRouteArgs(),
+      );
+      return WrappedRoute(child: TodoSavePage(key: args.key, todo: args.todo));
     },
   );
+}
+
+class TodoSaveRouteArgs {
+  const TodoSaveRouteArgs({this.key, this.todo});
+
+  final Key? key;
+
+  final TodoEntity? todo;
+
+  @override
+  String toString() {
+    return 'TodoSaveRouteArgs{key: $key, todo: $todo}';
+  }
 }

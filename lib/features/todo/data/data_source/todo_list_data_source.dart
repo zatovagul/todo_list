@@ -2,6 +2,8 @@ import 'package:drift/drift.dart';
 import 'package:test_todo_list/features/todo/data/database/database.dart';
 
 abstract interface class TodoListDataSource {
+  Future<int> todosCount();
+
   Future<List<Todo>> getList({
     int page = 0,
     int? pageSize,
@@ -20,6 +22,9 @@ class TodoListDataSourceImpl implements TodoListDataSource {
   const TodoListDataSourceImpl({required this.dao});
 
   final TodosDao dao;
+
+  @override
+  Future<int> todosCount() => dao.getTodosCount();
 
   @override
   Future<List<Todo>> getList({

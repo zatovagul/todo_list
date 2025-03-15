@@ -15,3 +15,15 @@ final class TodoListEvent$Fetch extends TodoListEvent {
 final class TodoListEvent$UpdateList extends TodoListEvent {
   const TodoListEvent$UpdateList();
 }
+
+final class TodoListEvent$Delete extends TodoListEvent {
+  const TodoListEvent$Delete(this.entity);
+
+  final TodoEntity entity;
+}
+
+final class TodoListEvent$CancelDelete extends TodoListEvent {
+  const TodoListEvent$CancelDelete(this.entity);
+
+  final TodoEntity entity;
+}

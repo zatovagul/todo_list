@@ -1,4 +1,15 @@
 {
   "@@locale": "ru",
-  "todoList": "Список дел"
+  "todoList": "Список дел",
+  "createTodo": "Создать дело",
+  "title": "Название",
+  "description": "Описание",
+  "photo": "Фото",
+  "enterThisField": "Заполните это поле",
+  "save": "Сохранить",
+  "camera": "Камера",
+  "gallery": "Галерея",
+  "delete": "Удалить",
+  "deleting": "Удаление",
+  "cancel": "Отмена"
 }

@@ -59,6 +59,66 @@ class S {
   String get todoList {
     return Intl.message('Список дел', name: 'todoList', desc: '', args: []);
   }
+
+  /// `Создать дело`
+  String get createTodo {
+    return Intl.message('Создать дело', name: 'createTodo', desc: '', args: []);
+  }
+
+  /// `Название`
+  String get title {
+    return Intl.message('Название', name: 'title', desc: '', args: []);
+  }
+
+  /// `Описание`
+  String get description {
+    return Intl.message('Описание', name: 'description', desc: '', args: []);
+  }
+
+  /// `Фото`
+  String get photo {
+    return Intl.message('Фото', name: 'photo', desc: '', args: []);
+  }
+
+  /// `Заполните это поле`
+  String get enterThisField {
+    return Intl.message(
+      'Заполните это поле',
+      name: 'enterThisField',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сохранить`
+  String get save {
+    return Intl.message('Сохранить', name: 'save', desc: '', args: []);
+  }
+
+  /// `Камера`
+  String get camera {
+    return Intl.message('Камера', name: 'camera', desc: '', args: []);
+  }
+
+  /// `Галерея`
+  String get gallery {
+    return Intl.message('Галерея', name: 'gallery', desc: '', args: []);
+  }
+
+  /// `Удалить`
+  String get delete {
+    return Intl.message('Удалить', name: 'delete', desc: '', args: []);
+  }
+
+  /// `Удаление`
+  String get deleting {
+    return Intl.message('Удаление', name: 'deleting', desc: '', args: []);
+  }
+
+  /// `Отмена`
+  String get cancel {
+    return Intl.message('Отмена', name: 'cancel', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

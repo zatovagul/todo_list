@@ -21,24 +21,30 @@ class Todos extends Table {
 class TodosDao extends DatabaseAccessor<AppDatabase> with _$TodosDaoMixin {
   TodosDao(super.db);
 
+  Future<int> getTodosCount() async {
+    final countQuery = todos.id.count();
+    final result =
+        await (selectOnly(todos)..addColumns([countQuery])).getSingle();
+    return result.read(countQuery) ?? 0;
+  }
+
   Future<List<Todo>> selectList({
     int page = 0,
     int pageSize = 20,
     OrderingMode? date,
     OrderingMode? title,
   }) async {
-    select(todos)
+    return (select(todos)
       ..orderBy([
         if (title != null)
           (t) => OrderingTerm(expression: t.title, mode: title),
         if (date != null)
           (t) => OrderingTerm(expression: t.createdAt, mode: date),
       ])
-      ..limit(pageSize, offset: page * pageSize);
-    return [];
+      ..limit(pageSize, offset: page * pageSize)).get();
   }
 
-  Future<Todo> getById(int id){
+  Future<Todo> getById(int id) {
     return (select(todos)..where((t) => t.id.equals(id))).getSingle();
   }
 

@@ -6,6 +6,8 @@ sealed class TodoListState {
 
   final List<TodoEntity> todos;
   final bool hasMore;
+
+  bool get isLoading => this is TodoListState$Loading;
 }
 
 class TodoListState$Idle extends TodoListState {
@@ -15,3 +17,11 @@ class TodoListState$Idle extends TodoListState {
 class TodoListState$Loading extends TodoListState {
   const TodoListState$Loading({super.todos, super.hasMore});
 }
+
+final class TodoListState$Deleting extends TodoListState {
+  const TodoListState$Deleting(this.entity, {super.todos, super.hasMore});
+
+  final TodoEntity entity;
+}
+
+

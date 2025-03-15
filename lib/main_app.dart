@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:test_todo_list/common/di/app_di.dart';
 import 'package:test_todo_list/common/gen/localization/l10n.dart';
 import 'package:test_todo_list/common/navigation/app_router.dart';
+import 'package:test_todo_list/features/todo/ui/widgets/todo_list_scope.dart';
 
 class MainApp extends StatefulWidget {
   const MainApp({required this.appDi, super.key});
@@ -34,7 +35,7 @@ class _MainAppState extends State<MainApp> {
       builder: (context, child) {
         return RepositoryProvider(
           create: (context) => widget.appDi,
-          child: child ?? const SizedBox(),
+          child: TodoListScope(child: child ?? const SizedBox()),
         );
       },
     );

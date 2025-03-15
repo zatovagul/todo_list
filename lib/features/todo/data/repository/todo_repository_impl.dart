@@ -11,8 +11,11 @@ class TodoRepositoryImpl implements TodoRepository {
   final TodoListDataSource dataSource;
 
   @override
+  Future<int> todosCount() => dataSource.todosCount();
+
+  @override
   Future<List<TodoEntity>> getList({
-    int page = 1,
+    int page = 0,
     int? pageSize,
     OrderingModeEntity? title,
     OrderingModeEntity? date,

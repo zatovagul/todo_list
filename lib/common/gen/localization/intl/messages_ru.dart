@@ -22,6 +22,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "camera": MessageLookupByLibrary.simpleMessage("Камера"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
+    "createTodo": MessageLookupByLibrary.simpleMessage("Создать дело"),
+    "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
+    "deleting": MessageLookupByLibrary.simpleMessage("Удаление"),
+    "description": MessageLookupByLibrary.simpleMessage("Описание"),
+    "enterThisField": MessageLookupByLibrary.simpleMessage(
+      "Заполните это поле",
+    ),
+    "gallery": MessageLookupByLibrary.simpleMessage("Галерея"),
+    "photo": MessageLookupByLibrary.simpleMessage("Фото"),
+    "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
+    "title": MessageLookupByLibrary.simpleMessage("Название"),
     "todoList": MessageLookupByLibrary.simpleMessage("Список дел"),
   };
 }
