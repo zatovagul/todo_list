@@ -7,6 +7,8 @@ import 'package:test_todo_list/common/navigation/app_router.dart';
 import 'package:test_todo_list/common/widgets/loader/load_more_loader.dart';
 import 'package:test_todo_list/common/widgets/snackbar/app_snackbar.dart';
 import 'package:test_todo_list/features/todo/bloc/list/todo_list_bloc.dart';
+import 'package:test_todo_list/features/todo/domain/entity/ordering_mode_entity.dart';
+import 'package:test_todo_list/features/todo/ui/widgets/sort_item_button.dart';
 import 'package:test_todo_list/features/todo/ui/widgets/todo_item.dart';
 
 @RoutePage()
@@ -15,22 +17,64 @@ class TodoListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.todoList)),
-      body: BlocConsumer<TodoListBloc, TodoListState>(
-        listenWhen: (_, state) => state is TodoListState$Deleting,
-        listener: (context, state) {
-          if (state is! TodoListState$Deleting) return;
-          AppSnackBar.of(context).showDeleteSnackBar(
-            onCancel: () {
-              context.read<TodoListBloc>().add(
-                TodoListEvent$CancelDelete(state.entity),
-              );
-            },
-          );
-        },
-        builder: (context, state) {
-          return Stack(
+    return BlocConsumer<TodoListBloc, TodoListState>(
+      listenWhen: (_, state) => state is TodoListState$Deleting,
+      listener: (context, state) {
+        if (state is! TodoListState$Deleting) return;
+        AppSnackBar.of(context).showDeleteSnackBar(
+          onCancel: () {
+            context.read<TodoListBloc>().add(
+              TodoListEvent$CancelDelete(state.entity),
+            );
+          },
+        );
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(context.l10n.todoList),
+            actions: [
+              SortItemButton(
+                onTap: (mode) {
+                  context.read<TodoListBloc>().add(
+                    TodoListEvent$Fetch(
+                      filter: TodoFilterEntity(
+                        title: mode,
+                        date: state.filter.date,
+                      ),
+                      force: true,
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.text_fields,
+                  color: context.theme.colorScheme.onPrimary,
+                ),
+                orderingMode: state.filter.title,
+              ),
+              const SizedBox(width: 8),
+              SortItemButton(
+                onTap: (mode) {
+                  context.read<TodoListBloc>().add(
+                    TodoListEvent$Fetch(
+                      filter: TodoFilterEntity(
+                        title: state.filter.title,
+                        date: mode,
+                      ),
+                      force: true,
+                    ),
+                  );
+                },
+                icon: Icon(
+                  Icons.date_range,
+                  color: context.theme.colorScheme.onPrimary,
+                ),
+                orderingMode: state.filter.date,
+              ),
+              const SizedBox(width: 16),
+            ],
+          ),
+          body: Stack(
             children: [
               ListView.separated(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
@@ -63,11 +107,11 @@ class TodoListPage extends StatelessWidget {
                   },
                   child: const Icon(Icons.add),
                 ),
-              )
+              ),
             ],
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

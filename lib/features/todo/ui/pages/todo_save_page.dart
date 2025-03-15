@@ -46,10 +46,11 @@ class _TodoSavePageState extends State<TodoSavePage> {
     if (item?.imageUrl != _imageUrl && _imageUrl != null) {
       _imageUrl = await ImageUtil.saveFileToPermanentStorage(File(_imageUrl!));
     }
+    final description = _descriptionController.text;
     final todo = TodoEntity(
       id: widget.todo?.id ?? -1,
       title: _titleController.text,
-      description: _descriptionController.text,
+      description: description.isEmpty ? null : description,
       createdAt: widget.todo?.createdAt ?? DateTime.now(),
       imageUrl: _imageUrl,
     );

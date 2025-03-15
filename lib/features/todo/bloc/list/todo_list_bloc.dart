@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_todo_list/features/todo/domain/entity/ordering_mode_entity.dart';
 import 'package:test_todo_list/features/todo/domain/entity/todo_entity.dart';
 import 'package:test_todo_list/features/todo/domain/repository/todo_repository.dart';
 
@@ -26,8 +27,8 @@ class TodoListBloc extends Bloc<TodoListEvent, TodoListState> {
 
   @override
   Future<void> close() async {
-    if(_deletingTodos.isNotEmpty){
-      for(final i in _deletingTodos) {
+    if (_deletingTodos.isNotEmpty) {
+      for (final i in _deletingTodos) {
         await repository.deleteTodo(i);
       }
     }
@@ -38,7 +39,14 @@ class TodoListBloc extends Bloc<TodoListEvent, TodoListState> {
     TodoListEvent$Fetch event,
     Emitter<TodoListState> emit,
   ) async {
-    emit(TodoListState$Loading(todos: state.todos, hasMore: state.hasMore));
+    emit(
+      TodoListState$Loading(
+        todos: event.force ? [] : state.todos,
+        hasMore: state.hasMore,
+        filter: state.filter,
+      ),
+    );
+    final filter = event.filter ?? state.filter;
     var page = event.page;
     if (event.force) page = 0;
     if (!event.force && page == null) {
@@ -46,23 +54,39 @@ class TodoListBloc extends Bloc<TodoListEvent, TodoListState> {
       page = count ~/ 20;
     }
 
-    final list = event.force ? <TodoEntity>[] : [...state.todos];
-    final todos = await repository.getList(page: page ?? 0);
+    final list = [...state.todos];
+    final todos = await repository.getList(
+      page: page ?? 0,
+      title: filter.title,
+      date: filter.date,
+    );
     list.addAll(todos);
     final count = await repository.todosCount();
     final hasMore = count > list.length;
-    emit(TodoListState$Idle(todos: list, hasMore: hasMore));
+    emit(TodoListState$Idle(todos: list, hasMore: hasMore, filter: filter));
   }
 
   Future<void> _updateList(
     TodoListEvent$UpdateList event,
     Emitter<TodoListState> emit,
   ) async {
-    emit(TodoListState$Loading(todos: state.todos, hasMore: state.hasMore));
-    final todos = await repository.getList(pageSize: state.todos.length + 1);
+    emit(
+      TodoListState$Loading(
+        todos: state.todos,
+        hasMore: state.hasMore,
+        filter: state.filter,
+      ),
+    );
+    final todos = await repository.getList(
+      pageSize: state.todos.length + 1,
+      title: state.filter.title,
+      date: state.filter.date,
+    );
     final count = await repository.todosCount();
     final hasMore = count > todos.length;
-    emit(TodoListState$Idle(todos: todos, hasMore: hasMore));
+    emit(
+      TodoListState$Idle(todos: todos, hasMore: hasMore, filter: state.filter),
+    );
   }
 
   Future<void> _delete(
@@ -72,7 +96,12 @@ class TodoListBloc extends Bloc<TodoListEvent, TodoListState> {
     _deletingTodos.add(event.entity.id);
     final list = state.todos.toList()..remove(event.entity);
     emit(
-      TodoListState$Deleting(event.entity, todos: list, hasMore: state.hasMore),
+      TodoListState$Deleting(
+        event.entity,
+        todos: list,
+        hasMore: state.hasMore,
+        filter: state.filter,
+      ),
     );
     await Future<void>.delayed(const Duration(seconds: 5));
     if (!_deletingTodos.contains(event.entity.id)) {

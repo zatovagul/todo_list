@@ -35,8 +35,7 @@ class AppSnackBar {
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: TweenAnimationBuilder<double>(
           tween: Tween(begin: 0, end: 1),
-
-          duration: const Duration(milliseconds: 5010),
+          duration: const Duration(seconds: 5),
           builder: (context, value, child) {
             return Stack(
               children: [
@@ -56,7 +55,6 @@ class AppSnackBar {
                     ],
                   ),
                 ),
-
                 Positioned(
                   left: 0,
                   right: 0,

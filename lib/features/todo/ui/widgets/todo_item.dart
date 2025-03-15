@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:test_todo_list/common/utils/date_util.dart';
 import 'package:test_todo_list/features/todo/domain/entity/todo_entity.dart';
 
 class TodoItem extends StatelessWidget {
@@ -46,6 +47,12 @@ class TodoItem extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
+                  const SizedBox(height: 2),
+                  Text(
+                    DateUtil.dateFormat.format(todo.createdAt),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),
